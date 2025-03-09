@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj1wq2pwvodn3"]
+
+[ext_resource type="Script" path="res://Scenes/Bullets/BulletBase.cs" id="1_5txeg"]
+
+[node name="BulletBase" type="Area2D" groups=["Moveables"]]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_5txeg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,0 +1,229 @@
+[gd_scene load_steps=16 format=3 uid="uid://c7ii3sl15sv4l"]
+
+[ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_i5mc1"]
+[ext_resource type="Texture2D" uid="uid://c0j3elxt7awgo" path="res://Assets/player/player.png" id="1_l7j34"]
+[ext_resource type="PackedScene" uid="uid://ca115ds33tncl" path="res://Scenes/Shooter/Shooter.tscn" id="3_h2vcw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kc4ss"]
+size = Vector2(10, 18)
+
+[sub_resource type="Animation" id="Animation_qvyfv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+
+[sub_resource type="Animation" id="Animation_0u44p"]
+resource_name = "fall"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_toiii"]
+resource_name = "hurt"
+length = 0.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_up6to"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_tcxjl"]
+resource_name = "jump"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="Animation" id="Animation_ib4j5"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_17ju1"]
+_data = {
+"RESET": SubResource("Animation_qvyfv"),
+"fall": SubResource("Animation_0u44p"),
+"hurt": SubResource("Animation_toiii"),
+"idle": SubResource("Animation_up6to"),
+"jump": SubResource("Animation_tcxjl"),
+"run": SubResource("Animation_ib4j5")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ext77"]
+radius = 8.0
+height = 24.0
+
+[sub_resource type="Animation" id="Animation_hucwb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_b6dj8"]
+resource_name = "invincible"
+length = 1.5
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0.972946), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_usww8"]
+_data = {
+"RESET": SubResource("Animation_hucwb"),
+"invincible": SubResource("Animation_b6dj8")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite2D", "_soundPlayer", "_animationPlayer", "_debugLabel", "_shooter", "_invincibleTimer", "_hurtTimer", "_invincibleAnimationPlayer", "_hitBox") groups=["Moveables", "Player"]]
+collision_layer = 0
+script = ExtResource("1_i5mc1")
+_sprite2D = NodePath("Sprite2D")
+_soundPlayer = NodePath("Sound")
+_animationPlayer = NodePath("AnimationPlayer")
+_debugLabel = NodePath("DebugLabel")
+_shooter = NodePath("Shooter")
+_invincibleTimer = NodePath("InvincibleTimer")
+_hurtTimer = NodePath("HurtTimer")
+_invincibleAnimationPlayer = NodePath("InvincibleAnimationPlayer")
+_hitBox = NodePath("HitBox")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_l7j34")
+hframes = 19
+frame = 14
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 5)
+shape = SubResource("RectangleShape2D_kc4ss")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -47.0
+offset_right = 251.0
+offset_bottom = 20.0
+scale = Vector2(0.2, 0.2)
+theme_override_font_sizes/font_size = 48
+text = "Debug label"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_17ju1")
+}
+autoplay = "idle"
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_ext77")
+
+[node name="Shooter" parent="." instance=ExtResource("3_h2vcw")]
+_speed = 250.0
+_bulletKey = 2
+_shootDelay = 0.2
+
+[node name="InvincibleTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="InvincibleAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_usww8")
+}
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

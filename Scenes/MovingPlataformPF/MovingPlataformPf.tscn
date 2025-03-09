@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://gdpfw0a2tiag"]
+
+[ext_resource type="Script" path="res://Scenes/MovingPlataformPF/MovingPlataformPf.cs" id="1_m7o7v"]
+[ext_resource type="Texture2D" uid="uid://cehvbr4h2rski" path="res://Assets/tiles/Terrain (16x16).png" id="1_xgote"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpolx"]
+size = Vector2(48, 9)
+
+[node name="MovingPlataformPF" type="PathFollow2D"]
+rotates = false
+script = ExtResource("1_m7o7v")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." groups=["Moveables"]]
+collision_mask = 0
+sync_to_physics = false
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+texture = ExtResource("1_xgote")
+region_enabled = true
+region_rect = Rect2(0, 64, 48, 9)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vpolx")
+one_way_collision = true
